@@ -64,7 +64,7 @@ def ami_connection(ast_musername, ast_msecret, ast_mport, ast_ip='localhost', ):
     FILE = open_sock(ast_ip, ast_mport)
 
     # Connect to Asterisk
-    FILE.write("Action: Login\r\nUsername: %s\r\nSecret: %s\r\nEvents: On\r\n\r\n" % (ast_musername, ast_msecret))
+    FILE.write(connect_ami(ast_musername,ast_msecret))
     FILE.flush()
     while connected:
         # try:
