@@ -79,7 +79,9 @@ def accountingStart(aani, adni, aconfid, asetuptime, aconnectime, acallorig='h32
 sleep(5)
 
 
-def accountingStop(aani, aconfid, acause, adni, asetuptime, acalltype, aconnectime, adisconectime, agwid,
+def accountingStop(aani, aconfid, acause,
+                   adni, asetuptime, acalltype,
+                   aconnectime, adisconectime, agwid,
                    acallorig='originate',
                    aacountsessiontime=0):
     """
