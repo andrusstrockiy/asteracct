@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import ConfigParser, logging as lg, os
+import ConfigParser, logging as lg
 # Todo make file opener handler and log the message for No option 'radius_server' in section: 'globals'
 
 # Default location of Asterisk ini files extensions.con and managers.conf
@@ -52,11 +52,3 @@ class ConfigOpener():
         self.rnas_addr = self.config.get('globals', 'NAS_IP_Address')
         logger.info('-- NAS IP address %s '
                     % (self.radius_addr))
-
-
-ch = ConfigOpener()
-
-scriptdir, scriptname = os.path.split(__file__)
-print(scriptname.strip('.py'))
-
-print(ch.radius_addr, ch.radius_acct_port, ch.rnas_addr, ch.radius_secret, ch.rnas_addr)
