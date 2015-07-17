@@ -1,43 +1,40 @@
 #!/usr/bin/env python
 
-import logging, confiparse
-
-import socket, sys
+import logg
+import confiparse
+import socket
+import sys
 import pyrad.packet
 from pyrad.client import Client
 from pyrad.dictionary import Dictionary
-from time import sleep
+
+log = logg.Loggable(alog_name=__name__)
+
 
 ch = confiparse.ConfigOpener()
 ch = ch.radius_config()
-print(ch)
+
 radiusaddr = ch['radius_addr']
 radiusscrt = ch['radius_secret']
 
-logger = logging.getLogger('Accounting')
-logger.setLevel(logging.DEBUG)
-fh = logging.FileHandler("astradclient.log")
-
-formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-fh.setFormatter(formatter)
-logger.addHandler(fh)
-
-srv = Client(server=radiusaddr, secret=radiusscrt,
-             dict=Dictionary("./dicts/dictionary", "./dicts/dictionary.cisco", "./dicts/dictionary.rfc2866"))
+srv = Client(server=radiusaddr, secret=radiusscrt, dict=Dictionary("./dicts/dictionary", "./dicts/dictionary.cisco",
+                                                                   "./dicts/dictionary.rfc2866"))
 
 
 def SendPacket(srv, req):
+    global log
     """
     :param srv:
     :param req:
     """
+
     try:
         srv.SendPacket(req)
     except pyrad.client.Timeout:
-        logger.critical("RADIUS server does not reply")
+        log.critical("RADIUS server does not reply")
         sys.exit(1)
     except socket.error, error:
-        logger.critical("Network error: " + error[1])
+        log.critical("Network error: " + error[1])
         sys.exit(1)
 
 
@@ -45,14 +42,11 @@ def accountingStart(aani, adni, aconfid, asetuptime, aconnectime, acallorig='h32
                     anassip=ch['rnas_addr'], anasport=0, anasidentifier='asterisk'):
     """
     Function to send Accounting Start
-
     :rtype : string
     :type anassip: string
     """
-
-    srv = Client(server=radiusaddr,
-                 secret=radiusscrt,
-                 dict=Dictionary("./dicts/dictionary", "./dicts/dictionary.cisco"))
+    srv = Client(server=radiusaddr, secret=radiusscrt, dict=Dictionary("./dicts/dictionary",
+                                                                       "./dicts/dictionary.cisco"))
     req = srv.CreateAcctPacket(User_Name=aani)
     req["Acct-Status-Type"] = "Start"
     req["NAS-IP-Address"] = anassip
@@ -65,10 +59,7 @@ def accountingStart(aani, adni, aconfid, asetuptime, aconnectime, acallorig='h32
     req['h323-connect-time'] = 'h323-connect-time=' + aconnectime
     req['h323-call-origin'] = acallorig
     SendPacket(srv, req)
-    logger.debug("--- Accounting START packet have been sent")
-
-
-sleep(5)
+    log.debug("--- Accounting START packet have been sent")
 
 
 def accountingStop(aani, aconfid, acause, adni, asetuptime, acalltype,
@@ -78,14 +69,14 @@ def accountingStop(aani, aconfid, acause, adni, asetuptime, acalltype,
     :rtype : str
     :return:
     """
-    global srv
+
     req = srv.CreateAcctPacket(User_Name=aani)
     req["Acct-Status-Type"] = "Stop"
     req['h323-conf-id'] = aconfid
     # req['Acct-Session-Time'] = 120
-    #req["Acct-Input-Octets"] = random.randrange(2**10, 2**30)
-    #req["Acct-Output-Octets"] = random.randrange(2**10, 2**30)
-    #req["Acct-Session-Time"] = random.randrange(120, 3600)
+    # req["Acct-Input-Octets"] = random.randrange(2**10, 2**30)
+    # req["Acct-Output-Octets"] = random.randrange(2**10, 2**30)
+    # req["Acct-Session-Time"] = random.randrange(120, 3600)
     req["Acct-Terminate-Cause"] = int(acause)
     req["Called-Station-Id"] = adni
     req["Calling-Station-Id"] = aani
@@ -101,4 +92,4 @@ def accountingStop(aani, aconfid, acause, adni, asetuptime, acalltype,
     else:
         req['h323-call-type'] = 'h323-call-type=' + 'Telephony'
     SendPacket(srv, req)
-    logger.debug(" --- Accounting STOP packet have been sent")
+    log.debug(" --- Accounting STOP packet have been sent")
