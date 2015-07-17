@@ -4,11 +4,12 @@ __author__ = 'andruss'
 
 import logging
 
+lvl = logging.INFO
 
 class Loggable(object):
     """Loggable class."""
 
-    def __init__(self, alog_file_name='log.txt', alog_level=logging.INFO, alog_name="radiusclient"):
+    def __init__(self, alog_file_name=__name__ + '.log', alog_level=logging.DEBUG, alog_name="radiusclient"):
         self.log_file_name = alog_file_name
         self.log_level = alog_level
         self.log_name = alog_name
@@ -35,4 +36,7 @@ class Loggable(object):
 
     def critical(self, log_line):
         self.logger.critical(log_line)
+
+    def error(self, log_line):
+        self.logger.error(log_line)
 

@@ -47,7 +47,7 @@ class ConfigOpener():
         self.radius_acct_port = self.config.get('globals', 'RAIUS_Acct_Port')
         self.rnas_addr = self.config.get('globals', 'NAS_IP_Address')
         log.info(' -- Radius client settings are Radius address %s and Radius Accounting Ports %s'
-                        % (self.radius_addr, self.radius_acct_port))
+                 % (self.radius_addr, self.radius_acct_port))
         self.radius_secret = self.config.get('globals', 'RADIUS_Secret')
         log.info(' -- NAS IP address %s ' % self.radius_addr)
         self.raddict = {'radius_addr': self.radius_addr, 'radius_acct_port': self.radius_acct_port,
