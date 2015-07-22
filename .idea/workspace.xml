@@ -24,21 +24,36 @@
     <ConfirmationsSetting value="0" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
+<<<<<<< HEAD
+=======
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+>>>>>>> 582751eb1cce6430e06357ec0dd8a0c6b03359a4
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.lastSelected" value="preferences.externalResources" />
     <property name="last_opened_file_path" value="$USER_HOME$/Pycharm" />
+<<<<<<< HEAD
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+=======
+    <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+>>>>>>> 582751eb1cce6430e06357ec0dd8a0c6b03359a4
   </component>
   <component name="RunManager">
     <list size="0" />
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="TaskManager">
+<<<<<<< HEAD
     <task active="true" id="Default" summary="Default task">
       <option name="number" value="Default" />
     </task>
+=======
+    <task active="true" id="Default" summary="Default task" />
+>>>>>>> 582751eb1cce6430e06357ec0dd8a0c6b03359a4
     <servers />
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -51,6 +66,12 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
+<<<<<<< HEAD
     <watches-manager />
   </component>
 </project>
+=======
+  </component>
+</project>
+
+>>>>>>> 582751eb1cce6430e06357ec0dd8a0c6b03359a4

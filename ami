@@ -1,0 +1,66 @@
+#!/usr/bin/env python
+
+import socket
+import sys
+import hashlib, string
+
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect(("192.168.6.254", 5038))
+s.settimeout(.5)
+tempfile = s.makefile("rw", 8096)
+tempfile.write("Action: Login\r\nUsername: test\r\nSecret: test\r\nEvents: On\r\n\r\n")
+tempfile.flush()
+print "Starting to Receive ...\n"
+AVDict = {}
+
+
+def confid_gen(val):
+    """Function which generates confid for h323_confid radius attribute"""
+    m = hashlib.md5()
+    m.update(str(val))
+    m = m.hexdigest()
+    # Format to match the following standard
+    # 16-byte number in hexadecimal notation with a space between each 4-byte integer
+    # i.e 29FB117C 640E9815 F342ABAD 9DCB6A72
+    m = m[0:8] + ' ' + m[8:16] + ' ' + m[16:24] + ' ' + m[24:]
+    return m.upper()
+
+
+while 1:
+    try:
+        data = tempfile.readline()
+        results = data.strip().split(": ")
+
+        try:
+            AVDict[results[0]].append(results[1])
+        except KeyError:
+            AVDict[results[0]] = results[1];
+        except AttributeError:
+            continue
+        except:
+            print "[1001] ", sys.exc_info()[0]
+
+    except IndexError:
+        try:
+            print "AVDict is:", AVDict
+            if AVDict['ChannelState'] == '4' and AVDict['ChannelStateDesc'] == 'Ring':
+                print('Sending Accounting for ANI  %s' % AVDict['CallerIDNum'])
+                print('---------')
+                print('Checking confid %s ' % confid_gen(AVDict['Uniqueid']))
+
+            AVDict.clear()
+            continue
+        except:
+            try:
+                del AVDict[:]
+            except TypeError:
+                continue
+            except:
+                print "[1003]  ", sys.exc_info()[0]
+                continue
+    except:
+        # print "[1004]  ", sys.exc_info()[0]
+        continue;
+
+tempfile.close()

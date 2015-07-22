@@ -2,7 +2,15 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/.idea/aster-accounting.iml" filepath="$PROJECT_DIR$/.idea/aster-accounting.iml" />
     </modules>
   </component>
 </project>
+=======
+      <module fileurl="file://$PROJECT_DIR$/.idea/aster-ami.iml" filepath="$PROJECT_DIR$/.idea/aster-ami.iml" />
+    </modules>
+  </component>
+</project>
+
+>>>>>>> 582751eb1cce6430e06357ec0dd8a0c6b03359a4

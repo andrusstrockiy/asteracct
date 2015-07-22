@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
   <component name="DaemonCodeAnalyzer">
     <disable_hints />
   </component>
@@ -28,14 +29,20 @@
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
   </component>
+=======
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.2.3 (/usr/bin/python3mu)" project-jdk-type="Python SDK" />
+>>>>>>> 582751eb1cce6430e06357ec0dd8a0c6b03359a4
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
       <PyConsoleSettings />
     </option>
   </component>
+<<<<<<< HEAD
   <component name="RunManager">
     <list size="0" />
   </component>
+=======
+>>>>>>> 582751eb1cce6430e06357ec0dd8a0c6b03359a4
   <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="all">
     <option name="USER" value="" />
     <option name="PASSWORD" value="" />
@@ -53,6 +60,7 @@
     <option name="IGNORE_EXTERNALS" value="false" />
     <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
   </component>
+<<<<<<< HEAD
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
@@ -62,3 +70,7 @@
     </option>
   </component>
 </project>
+=======
+</project>
+
+>>>>>>> 582751eb1cce6430e06357ec0dd8a0c6b03359a4
