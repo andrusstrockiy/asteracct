@@ -6,6 +6,7 @@
 *.exe
 *.o
 *.so
+*.pyc
  
 # Packages #
 ############
@@ -19,6 +20,7 @@
 *.rar
 *.tar
 *.zip
+*.deb
 
 # Logs and databases #
 ######################
