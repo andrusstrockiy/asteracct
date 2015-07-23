@@ -4,6 +4,7 @@
 __author__ = 'andruss'
 
 import logging
+import logging.handlers
 
 lvl = logging.INFO
 
@@ -19,7 +20,9 @@ class Loggable(object):
     def get_logger(self):
         logger = logging.getLogger(self.log_name)
         logger.setLevel(self.log_level)
-        handler = logging.FileHandler(self.log_file_name)
+        # Log rotation
+        handler = logging.handlers.TimedRotatingFileHandler(self.log_file_name, when="midnight", backupCount=14)
+        # handler = logging.FileHandler(self.log_file_name)
         logger.addHandler(handler)
         formater = logging.Formatter('%(asctime)s  %(name)s -%(thread)s %(threadName)s '
                                      ' %(module)s - [%(levelname)s] - %(message)s')
