@@ -17,8 +17,9 @@ extensionsconf = confdir + 'extensions.conf'
 managersconf = confdir + 'manager.conf'
 celconf = confdir + 'cel.conf'
 cdrconf = confdir + 'cdr_manager.conf'
-asterisk_amihost = "192.168.55.254"
-
+asterisk_amihost = "127.0.0.1"
+# Psi tester
+# asterisk_amihost = "192.168.254.1"
 
 class ConfigOpener():
     """Class which parse configs"""
@@ -92,7 +93,6 @@ class ConfigOpener():
                 log.critical('AMI manager couldn\'t be found')
                 log.critical('Please set one in /etc/asterisk/manager.conf')
                 sys.exit(1)
-        log.info("Reading CEL and CDR config")
 
         self.amimdict = {'ami_port': self.amiport, 'ami_enabled': self.amienables, 'ami_host': self.amihost,
                          'ami_manager': self.amimanager, 'ami_secret': self.amisecret}
@@ -106,22 +106,35 @@ class ConfigOpener():
             return True
         else:
             log.critical('Please set enabled=yes in [general] section of %s ini file' % afconfig)
+            log.critical('Now value is set to %s' % self.cdr_enabled)
+            sys.stderr.write('Please set enabled=yes in [general] section of %s ini file' % afconfig)
+            sys.stderr.write("\n \t Exiting ...")
             sys.exit(1)
 
     def cel_config(self, afconfig=celconf):
-        log.info('-- Start reading config from  % file ' % afconfig)
+        log.info('-- Start reading config from  %s file ' % afconfig)
         self.configfiles = self.config.readfp(open(afconfig))
-        self.cel_enable = self.config.get('general', 'enable')
-        if 'yes' != self.cel_enable:
-            log.critical('Please set enable=yes in [general] section of %s ini file' % afconfig)
-            sys.exit(1)
-        self.cel_answer = self.config.get('general', 'events')
-        if 'ANSWER' != self.cel_answer:
-            log.critical('Please set events=ANSWER in [general] section of %s ini file' % afconfig)
-            sys.exit(1)
+        try:
 
-        self.ami_backend = self.config.get('manager', 'enabled')
-        if 'yes' != self.ami_backend:
-            log.critical('Please set enabled=yes in [manage] section of %s ini file' % afconfig)
+            self.cel_enable = self.config.get('general', 'enable')
+            if 'yes' != self.cel_enable:
+                log.critical('Please set enable=yes in [general] section of %s ini file' % afconfig)
+                sys.exit(1)
+            self.cel_answer = self.config.get('general', 'events')
+            if self.cel_answer.find('ANSWER') == -1:
+                sys.stderr.write('Please set events=ANSWER in [general] section of %s ini file' % afconfig)
+                log.critical('Please set events=ANSWER in [general] section of %s ini file' % afconfig)
+                sys.exit(1)
+        except ConfigParser.NoOptionError as err:
+            sys.stderr.write('Please set enable=yes in [general] section of %s ini file' % afconfig)
+            sys.exit(1)
+            # print(afconfig+"Please set enable=yes in [general] section of  ini file", file=sys.stderr)
+        try:
+            self.ami_backend = self.config.get('manager', 'enabled')
+            if 'yes' != self.ami_backend:
+                log.critical('Please set enabled=yes in [manager] section of %s ini file' % afconfig)
+                sys.exit(1)
+        except ConfigParser.NoOptionError:
+            sys.stderr.write('Please set enabled=yes in [manager] section of %s ini file' % afconfig)
             sys.exit(1)
         return True
