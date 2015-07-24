@@ -5,6 +5,7 @@ import logg
 import confiparse
 import socket
 import sys
+from os import getcwd as pwd
 import pyrad.packet
 from pyrad.client import Client
 from pyrad.dictionary import Dictionary
@@ -18,8 +19,11 @@ ch = ch.radius_config()
 radiusaddr = ch['radius_addr']
 radiusscrt = ch['radius_secret']
 
-srv = Client(server=radiusaddr, secret=radiusscrt, dict=Dictionary("./dicts/dictionary", "./dicts/dictionary.cisco",
-                                                                   "./dicts/dictionary.rfc2866"))
+getrdir = pwd()
+
+srv = Client(server=radiusaddr, secret=radiusscrt,
+             dict=Dictionary(getrdir + "/dicts/dictionary", getrdir + "/dicts/dictionary.cisco",
+                             getrdir + "/dicts/dictionary.rfc2866"))
 
 
 def SendPacket(srv, req):
