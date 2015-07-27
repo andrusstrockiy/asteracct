@@ -47,15 +47,35 @@ class ConfigOpener():
         self.cel_answer = ''
         self.ami_backend = ''
 
-    def radius_config(self, afconfigs=extensionsconf):
-        self.configfiles = self.config.readfp(open(afconfigs))
-        log.info(" -- Start reading config settings from file %s " % afconfigs)
-        self.radius_addr = self.config.get('globals', 'RADIUS_Server')
-        self.radius_acct_port = self.config.get('globals', 'RAIUS_Acct_Port')
-        self.rnas_addr = self.config.get('globals', 'NAS_IP_Address')
+    def radius_config(self, afconfig=extensionsconf):
+        self.configfiles = self.config.readfp(open(afconfig))
+        log.info(" -- Start reading config settings from file %s " % afconfig)
+        try:
+            self.radius_addr = self.config.get('globals', 'RADIUS_Server')
+        except ConfigParser.NoOptionError:
+            log.critical('Please set RADIUS_Server in [general] section of %s ini file' % afconfig)
+            sys.stderr.write('Please set RADIUS_Server in [general] section of %s ini file' % afconfig)
+            sys.exit(1)
+        try:
+            self.radius_acct_port = self.config.get('globals', 'RAIUS_Acct_Port')
+        except ConfigParser.NoOptionError:
+            log.critical('Please set RADIUS_Acct_Port in [general] section of %s ini file' % afconfig)
+            sys.stderr.write('Please set  RADIUS_Acct_Port in [general] section of %s ini file' % afconfig)
+            sys.exit(1)
+        try:
+            self.rnas_addr = self.config.get('globals', 'NAS_IP_Address')
+        except ConfigParser.NoOptionError:
+            log.critical('Please set NAS_IP_Address in [general] section of %s ini file' % afconfig)
+            sys.stderr.write('Please set  NAS_IP_Address in [general] section of %s ini file' % afconfig)
+            sys.exit(1)
         log.info(' -- Radius client settings are Radius address %s and Radius Accounting Ports %s'
                  % (self.radius_addr, self.radius_acct_port))
-        self.radius_secret = self.config.get('globals', 'RADIUS_Secret')
+        try:
+            self.radius_secret = self.config.get('globals', 'RADIUS_Secret')
+        except ConfigParser.NoOptionError:
+            log.critical('Please set RADIUS_Secret in [general] section of %s ini file' % afconfig)
+            sys.stderr.write('Please set  RADIUS_Secret in [general] section of %s ini file' % afconfig)
+            sys.exit(1)
         log.info(' -- NAS IP address %s ' % self.radius_addr)
         self.raddict = {'radius_addr': self.radius_addr, 'radius_acct_port': self.radius_acct_port,
                         'rnas_addr': self.rnas_addr, 'radius_secret': self.radius_secret}
@@ -115,7 +135,6 @@ class ConfigOpener():
         log.info('-- Start reading config from  %s file ' % afconfig)
         self.configfiles = self.config.readfp(open(afconfig))
         try:
-
             self.cel_enable = self.config.get('general', 'enable')
             if 'yes' != self.cel_enable:
                 log.critical('Please set enable=yes in [general] section of %s ini file' % afconfig)
@@ -125,7 +144,7 @@ class ConfigOpener():
                 sys.stderr.write('Please set events=ANSWER in [general] section of %s ini file' % afconfig)
                 log.critical('Please set events=ANSWER in [general] section of %s ini file' % afconfig)
                 sys.exit(1)
-        except ConfigParser.NoOptionError as err:
+        except ConfigParser.NoOptionError:
             sys.stderr.write('Please set enable=yes in [general] section of %s ini file' % afconfig)
             sys.exit(1)
             # print(afconfig+"Please set enable=yes in [general] section of  ini file", file=sys.stderr)
