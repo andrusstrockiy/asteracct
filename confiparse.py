@@ -76,7 +76,7 @@ class ConfigOpener():
             log.critical('Please set RADIUS_Secret in [general] section of %s ini file' % afconfig)
             sys.stderr.write('Please set  RADIUS_Secret in [general] section of %s ini file' % afconfig)
             sys.exit(1)
-        log.info(' -- NAS IP address %s ' % self.radius_addr)
+        log.info(' -- NAS IP address %s ' % self.rnas_addr)
         self.raddict = {'radius_addr': self.radius_addr, 'radius_acct_port': self.radius_acct_port,
                         'rnas_addr': self.rnas_addr, 'radius_secret': self.radius_secret}
         return self.raddict
