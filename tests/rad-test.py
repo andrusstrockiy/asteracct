@@ -1,4 +1,4 @@
-import pyrad.packet
+mport pyrad.packet
 from pyrad.client import Client
 from pyrad.dictionary import Dictionary
 
