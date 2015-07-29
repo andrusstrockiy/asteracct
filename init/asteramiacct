@@ -1,0 +1,76 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          asteriskamiacct.py
+# Required-Start:    $local_fs $network $named $time $syslog
+# Required-Stop:     $local_fs $network $named $time $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Description:       Asterisk Accounting script
+### END INIT INFO
+
+SCRIPT=/opt/asteracct/asteramiacct.py
+
+
+
+export PYTHONPATH=/opt/asteracct/
+ 
+RUNAS=root
+
+PIDFILE=/var/run/asteriskamiacct.pid
+LOGFILE=/var/log/asteriskamiacct.log
+
+
+DAEMON_NAME=asteramiacct
+
+
+start() {
+  if [ -f /var/run/${DAEMON_NAME} ] && kill -0 $(cat /var/run/${DAEMON_NAME}); then
+    echo "Service $DAEMON_NAME Aalready running" >&2
+    return 1
+  fi
+  echo "Starting service $DAEMON_NAME…" >&2
+  local CMD="/usr/bin/python $SCRIPT &> \"$LOGFILE\" & echo \$!"
+  su -c "$CMD" ${RUNAS} > "$PIDFILE"
+  echo 'Service started' >&2
+}
+
+stop() {
+  if [ ! -f "$PIDFILE" ] || ! kill -0 $(cat "$PIDFILE"); then
+    echo 'Service' ${DAEMON_NAME} 'not running' >&2
+    return 1
+  fi
+  echo 'Stopping ' ${DAEMON_NAME} ' service…' >&2
+  kill -15 $(cat "$PIDFILE") && rm -f "$PIDFILE"
+  echo 'Service stopped' >&2
+}
+
+uninstall() {
+  echo -n "Are you really sure you want to uninstall this service? That cannot be undone. [yes|No] "
+  local SURE
+  read SURE
+  if [ "$SURE" = "yes" ]; then
+    stop
+    rm -f "$PIDFILE"
+    echo "Notice: log file is not be removed: '$LOGFILE'" >&2
+    update-rc.d -f ${DAEMON_NAME} remove
+    rm -fv "$0"
+  fi
+}
+
+case "$1" in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  uninstall)
+    uninstall
+    ;;
+  retart)
+    stop
+    start
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart|uninstall}"
+esac
