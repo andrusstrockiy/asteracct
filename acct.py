@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# Todo make error handler for radius settings config readings
+
 import logg
 import confiparse
 import socket
@@ -68,7 +70,8 @@ def accountingStart(aani, adni, aconfid, asetuptime, aconnectime, acallorig='h32
 
 
 def accountingStop(aani, aconfid, acause, adni, asetuptime, acalltype,
-                   aconnectime, adisconectime, agwid, acallorig='originate', aacountsessiontime=0):
+                   aconnectime, adisconectime, agwid, acallorig='originate',
+                   aacountsessiontime=0, anassip=ch['rnas_addr']):
     """
     Function to send Accounting STOP packet
     :rtype : str
@@ -76,6 +79,7 @@ def accountingStop(aani, aconfid, acause, adni, asetuptime, acalltype,
     """
 
     req = srv.CreateAcctPacket(User_Name=aani)
+    req["NAS-IP-Address"] = anassip
     req["Acct-Status-Type"] = "Stop"
     req['h323-conf-id'] = aconfid
     # req['Acct-Session-Time'] = 120
