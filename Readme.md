@@ -59,13 +59,13 @@ Python 2.6 or Python 3.2 or later.
 7. Start the script 
 <pre> service asteramiacct start </pre>
 
-8. Make the test calls and observe review results.You should see Accounting-Start and Stop packets to arrive in Radius
+8. Make some test calls and observe results.You should see Accounting-Start and Accounting-Stop packets to arrive at Radius
 
 
 
 ## Troubleshooting
 
-For errors please check log file asteracct.log of which located in /var/log/ directory.
+For errors and troubleshooting please check log file asteracct.log of which located in /var/log/ directory.
 If still in trouble contact me.
 
 
