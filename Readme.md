@@ -9,7 +9,9 @@ Accounting script which connects to [Asterisk](https://www.digium.com/products/a
 
 OS CentOS/5x or 6x Debian 6 or 7
 
-Python 2.6 or Python 3.2 or later.
+Python 2.6 or Python 3.2 or later
+
+Asterisk version starting from 1.8 and later
 
 
 
@@ -69,4 +71,18 @@ For errors and troubleshooting please check log file asteracct.log of which loca
 If still in trouble contact me.
 
 
+
+## Author, copyright, availability
+
+
+asteramiacct was written by Andrew Tkachenko <trockiy4@hotmail.com> and is licensed
+under a BSD license. 
+
+Copyright and license information can be found in the LICENSE.txt file.
+
+The current version and documentation can be found on github:
+[source] (https://github.com/andrusstrockiy/asteracct)
+
+Bugs and wishes can be submitted in the issue tracker on github:
+[issues] (https://github.com/andrusstrockiy/asteracct/issues)
 
