@@ -20,7 +20,7 @@ Python 2.6 or Python 3.2 or later.
 2. Copy the content to /opt/ folder
 <pre> cp -r ./asteracct/* /opt </pre>
 
-3. Edit asterisk dialplan extensions.conf set the following global variables in general section of ini file
+3. Edit asterisk dialplan __extensions.conf__ set the following global variables in general section of ini file
     <pre>RADIUS_Server=Ip_of_your_Radius_Server</pre>
     <pre>RADIUS_Secret=secret</pre>
     <pre>RADIUS_Auth_Port=1812</pre>
