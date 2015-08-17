@@ -18,8 +18,7 @@ managersconf = confdir + 'manager.conf'
 celconf = confdir + 'cel.conf'
 cdrconf = confdir + 'cdr_manager.conf'
 asterisk_amihost = "127.0.0.1"
-# Psi tester
-# asterisk_amihost = "192.168.254.1"
+
 
 class ConfigOpener():
     """Class which parse configs"""
@@ -92,7 +91,7 @@ class ConfigOpener():
         for managers in ['test', 'lbamimanager']:
             if managers in self.config.sections():
                 # logger.setLevel(lg.DEBUG)
-                log.debug("-mamagers- %s" % managers)
+                log.debug("-managers- %s" % managers)
                 self.amimanager = managers
                 self.amisecret = self.config.get(managers, 'secret')
                 log.info("AMI manager login credentials:%s " % managers)
