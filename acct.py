@@ -20,10 +20,11 @@ ch = ch.radius_config()
 
 radiusaddr = ch['radius_addr']
 radiusscrt = ch['radius_secret']
+radiusacctprt = int(ch['radius_acct_port'])
 
 getrdir = pwd()
 
-srv = Client(server=radiusaddr, secret=radiusscrt,
+srv = Client(server=radiusaddr, secret=radiusscrt, acctport=radiusacctprt,
              dict=Dictionary(getrdir + "/dicts/dictionary", getrdir + "/dicts/dictionary.cisco",
                              getrdir + "/dicts/dictionary.rfc2866"))
 
@@ -52,8 +53,9 @@ def accountingStart(aani, adni, aconfid, asetuptime, aconnectime, acallorig='h32
     :rtype : string
     :type anassip: string
     """
-    srv = Client(server=radiusaddr, secret=radiusscrt, dict=Dictionary("./dicts/dictionary",
-                                                                       "./dicts/dictionary.cisco"))
+    global srv
+    # srv = Client(server=radiusaddr, acctport=radiusacctprt, secret=radiusscrt, dict=Dictionary("./dicts/dictionary",
+    #                                                                    "./dicts/dictionary.cisco"))
     req = srv.CreateAcctPacket(User_Name=aani)
     req["Acct-Status-Type"] = "Start"
     req["NAS-IP-Address"] = anassip
@@ -61,7 +63,7 @@ def accountingStart(aani, adni, aconfid, asetuptime, aconnectime, acallorig='h32
     req["NAS-Identifier"] = anasidentifier
     req["Called-Station-Id"] = aani
     req["Calling-Station-Id"] = adni
-    req['h323-conf-id'] = aconfid
+    req['h323-conf-id'] = 'h323-conf-id=' + aconfid
     req['h323-setup-time'] = 'h323-setup-time=' + asetuptime
     req['h323-connect-time'] = 'h323-connect-time=' + aconnectime
     req['h323-call-origin'] = acallorig
@@ -77,11 +79,11 @@ def accountingStop(aani, aconfid, acause, adni, asetuptime, acalltype,
     :rtype : str
     :return:
     """
-
+    global srv
     req = srv.CreateAcctPacket(User_Name=aani)
     req["NAS-IP-Address"] = anassip
     req["Acct-Status-Type"] = "Stop"
-    req['h323-conf-id'] = aconfid
+    req['h323-conf-id'] = 'h323-conf-id=' + aconfid
     # req['Acct-Session-Time'] = 120
     # req["Acct-Input-Octets"] = random.randrange(2**10, 2**30)
     # req["Acct-Output-Octets"] = random.randrange(2**10, 2**30)
