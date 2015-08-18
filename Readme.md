@@ -28,7 +28,7 @@ Asterisk version starting from 1.8 and later
         <pre> cd /opt </pre>
       + and clone it:
         <pre>sudo git clone https://github.com/andrusstrockiy/asteracct.git</pre>
-2. Change permissions for installation folder if you not running script as a root:
+2. Change permissions for installation folder in case you not planning of  running that script as a root:
     <pre> chown _your_login_username_ /opt/asteracct/* </pre>
 3. Edit asterisk dialplan __extensions.conf__ set the following global variables in _general_ section of that file
     <pre>
@@ -43,7 +43,7 @@ Asterisk version starting from 1.8 and later
     ...
     </pre>
 
-4. Enable and set asterisk AMI manager im <i>managers.conf</i> according the fol lowing example
+4. Enable and set asterisk AMI manager in <i>managers.conf</i> according the fol lowing example
     * For enabling ami interface asterisk at the top of <i>manageres.conf</i> set :
 <pre> [general] </pre>
 <pre>enabled = yes</pre>
@@ -80,7 +80,7 @@ Asterisk version starting from 1.8 and later
 
 ## Troubleshooting
 
-For errors and troubleshooting please check log file asteracct.log of which located in /var/log/ directory.
+For errors and troubleshooting please check log file asteracct.log of which located in __/opt/asteracct/__ directory.
 If still in trouble contact me.
 
 
