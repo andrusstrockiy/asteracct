@@ -16,18 +16,20 @@ Asterisk version starting from 1.8 and later
 
 
 ## Installation
-1. Download the archive
 
-2. Create folder mkdir -p /opt/asteracct/
-
-1. Unzip / Untar the following archive with the script 
-    * For tat.gz 
-<pre>sudo tar -zxvf asteracct-master.tar.gz -C /opt/</pre>
-2. Copy the content to /opt/ folder
-<pre> cp -r ./asteracct/* /opt </pre>
-
-    * Change permissions for installation folder if you not running script as a root:
-<pre> chown _your_login_username_ /opt/asterisk/* </pre>
+1. Getting the source either by downloading an archive file or by cloning
+   1.For Archive.Download as zip file archive
+      + Unzip / Untar the following archive with the script
+        <pre>sudo tar -zxvf asteracct-master.tar.gz -C /opt/</pre>
+      + For unzip run the following:
+        <pre>sudo unzip asteracct-master.zip -d /opt/ </pre>
+   2. To clone the repository
+      + cd to opt directory:
+        <pre> cd /opt </pre>
+      + and clone it:
+        <pre>sudo git clone https://github.com/andrusstrockiy/asteracct.git</pre>
+2. Change permissions for installation folder if you not running script as a root:
+    <pre> chown _your_login_username_ /opt/asteracct/* </pre>
 3. Edit asterisk dialplan __extensions.conf__ set the following global variables in _general_ section of that file
     <pre>
     [general]
