@@ -18,7 +18,7 @@ Asterisk version starting from 1.8 and later
 ## Installation
 
 1. Getting the source either by downloading an archive file or by cloning
-   1.For Archive.Download as zip file archive
+   1. For Archive.Download as zip file archive
       + Unzip / Untar the following archive with the script
         <pre>sudo tar -zxvf asteracct-master.tar.gz -C /opt/</pre>
       + For unzip run the following:
