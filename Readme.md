@@ -23,12 +23,14 @@ Asterisk version starting from 1.8 and later
 <pre> cp -r ./asteracct/* /opt </pre>
 
 3. Edit asterisk dialplan __extensions.conf__ set the following global variables in general section of ini file
-    <pre>RADIUS_Server=Ip_of_your_Radius_Server</pre>
-    <pre>RADIUS_Secret=secret</pre>
-    <pre>RADIUS_Auth_Port=1812</pre>
-    <pre>RAIUS_Acct_Port=1813</pre>
-    <pre>Acct_Update_Timeout=30</pre>
-    <pre>NAS_IP_Address=Ip_of_your_asterisk</pre>
+    <pre>
+    RADIUS_Server=Ip_of_your_Radius_Server
+    RADIUS_Secret=secret
+    RADIUS_Auth_Port=1812
+    RAIUS_Acct_Port=1813
+    Acct_Update_Timeout=30
+    NAS_IP_Address=Ip_of_your_asterisk
+    </pre>
 
 4. Enable and set asterisk AMI manager im <i>managers.conf</i> according the fol lowing example
     * For enabling ami interface asterisk at the top of <i>manageres.conf</i> set :
