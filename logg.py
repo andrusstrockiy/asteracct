@@ -7,7 +7,7 @@ import os
 import logging
 import logging.handlers
 
-# Todo create handler which creates a directory when it doesn't exist
+
 # Todo Read log directory from and extension.conf file
 logfilename = 'asteracct.log'
 logdir = '/opt/asteracct/log/'
