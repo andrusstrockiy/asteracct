@@ -16,20 +16,29 @@ Asterisk version starting from 1.8 and later
 
 
 ## Installation
+1. Download the archive
+
+2. Create folder mkdir -p /opt/asteracct/
 
 1. Unzip / Untar the following archive with the script 
-<pre> tar -zxvf asteracct.tar.gz </pre>
+    * For tat.gz 
+<pre>sudo tar -zxvf asteracct-master.tar.gz -C /opt/</pre>
 2. Copy the content to /opt/ folder
 <pre> cp -r ./asteracct/* /opt </pre>
 
-3. Edit asterisk dialplan __extensions.conf__ set the following global variables in _general_ section of ini file
+    * Change permissions for installation folder if you not running script as a root:
+<pre> chown _your_login_username_ /opt/asterisk/* </pre>
+3. Edit asterisk dialplan __extensions.conf__ set the following global variables in _general_ section of that file
     <pre>
+    [general]
+    ....
     RADIUS_Server=Ip_of_your_Radius_Server
     RADIUS_Secret=secret
     RADIUS_Auth_Port=1812
     RAIUS_Acct_Port=1813
     Acct_Update_Timeout=30
     NAS_IP_Address=Ip_of_your_asterisk
+    ...
     </pre>
 
 4. Enable and set asterisk AMI manager im <i>managers.conf</i> according the fol lowing example
