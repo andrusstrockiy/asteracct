@@ -22,7 +22,7 @@ Asterisk version starting from 1.8 and later
 2. Copy the content to /opt/ folder
 <pre> cp -r ./asteracct/* /opt </pre>
 
-3. Edit asterisk dialplan __extensions.conf__ set the following global variables in general section of ini file
+3. Edit asterisk dialplan __extensions.conf__ set the following global variables in _general_ section of ini file
     <pre>
     RADIUS_Server=Ip_of_your_Radius_Server
     RADIUS_Secret=secret

@@ -20,7 +20,7 @@ cdrconf = confdir + 'cdr_manager.conf'
 asterisk_amihost = "127.0.0.1"
 
 
-class ConfigOpener():
+class ConfigOpener:
     """Class which parse configs"""
     global confdir, asterisk_amihost, log
 
