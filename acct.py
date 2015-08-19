@@ -7,13 +7,11 @@ import logg
 import confiparse
 import socket
 import sys
-from os import getcwd as pwd
 import pyrad.packet
 from pyrad.client import Client
 from pyrad.dictionary import Dictionary
 
 log = logg.Loggable(alog_name=__name__)
-
 
 ch = confiparse.ConfigOpener()
 ch = ch.radius_config()
@@ -22,7 +20,7 @@ radiusaddr = ch['radius_addr']
 radiusscrt = ch['radius_secret']
 radiusacctprt = int(ch['radius_acct_port'])
 
-getrdir = pwd()
+getrdir = '/opt/asteracct'
 
 srv = Client(server=radiusaddr, secret=radiusscrt, acctport=radiusacctprt,
              dict=Dictionary(getrdir + "/dicts/dictionary", getrdir + "/dicts/dictionary.cisco",
@@ -37,12 +35,18 @@ def SendPacket(srv, req):
     """
 
     try:
-        srv.SendPacket(req)
+        reply = srv.SendPacket(req)
+        return reply
+
     except pyrad.client.Timeout:
         log.critical("RADIUS server does not reply")
-        sys.exit(1)
+        req = dict()
+        log.critical("Please check the settings or Radius service availability")
+        pass
+        # sys.exit(1)
     except socket.error, error:
         log.critical("Network error: " + error[1])
+
         sys.exit(1)
 
 
@@ -56,7 +60,7 @@ def accountingStart(aani, adni, aconfid, asetuptime, aconnectime, acallorig='h32
     global srv
     # srv = Client(server=radiusaddr, acctport=radiusacctprt, secret=radiusscrt, dict=Dictionary("./dicts/dictionary",
     #                                                                    "./dicts/dictionary.cisco"))
-    req = srv.CreateAcctPacket(User_Name=aani)
+    req = srv.CreateAcctPacket(User_Name=aani, code=pyrad.packet.AccountingRequest)
     req["Acct-Status-Type"] = "Start"
     req["NAS-IP-Address"] = anassip
     req["NAS-Port"] = anasport
@@ -67,8 +71,10 @@ def accountingStart(aani, adni, aconfid, asetuptime, aconnectime, acallorig='h32
     req['h323-setup-time'] = 'h323-setup-time=' + asetuptime
     req['h323-connect-time'] = 'h323-connect-time=' + aconnectime
     req['h323-call-origin'] = acallorig
-    SendPacket(srv, req)
-    log.debug("--- Accounting START packet have been sent")
+    reply = SendPacket(srv, req)
+    if reply.code == pyrad.packet.AccountingResponse:
+        log.debug(" --- Accounting START packet for session %s have been sent successfully" %
+                  req['h323-conf-id'])
 
 
 def accountingStop(aani, aconfid, acause, adni, asetuptime, acalltype,
@@ -80,7 +86,7 @@ def accountingStop(aani, aconfid, acause, adni, asetuptime, acalltype,
     :return:
     """
     global srv
-    req = srv.CreateAcctPacket(User_Name=aani)
+    req = srv.CreateAcctPacket(User_Name=aani, code=pyrad.packet.AccountingRequest)
     req["NAS-IP-Address"] = anassip
     req["Acct-Status-Type"] = "Stop"
     req['h323-conf-id'] = 'h323-conf-id=' + aconfid
@@ -102,5 +108,7 @@ def accountingStop(aani, aconfid, acause, adni, asetuptime, acalltype,
         req['h323-call-type'] = 'h323-call-type=' + 'VoIP'
     else:
         req['h323-call-type'] = 'h323-call-type=' + 'Telephony'
-    SendPacket(srv, req)
-    log.debug(" --- Accounting STOP packet have been sent")
+    reply = SendPacket(srv, req)
+    if reply.code == pyrad.packet.AccountingResponse:
+        log.debug(" --- Accounting STOP packet for session %s have been sent successfully"
+                  % req['h323-conf-id'])

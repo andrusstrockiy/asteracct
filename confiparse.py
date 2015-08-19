@@ -57,7 +57,7 @@ class ConfigOpener:
             sys.stderr.write('Please set RADIUS_Server in [general] section of %s ini file' % afconfig)
             sys.exit(1)
         try:
-            self.radius_acct_port = self.config.get('globals', 'RAIUS_Acct_Port')
+            self.radius_acct_port = self.config.get('globals', 'RADIUS_Acct_Port')
         except ConfigParser.NoOptionError:
             log.critical('Please set RADIUS_Acct_Port in [general] section of %s ini file' % afconfig)
             sys.stderr.write('Please set  RADIUS_Acct_Port in [general] section of %s ini file' % afconfig)
