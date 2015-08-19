@@ -40,10 +40,11 @@ def SendPacket(srv, req):
 
     except pyrad.client.Timeout:
         log.critical("RADIUS server does not reply")
+
         req = dict()
         log.critical("Please check the settings or Radius service availability")
         pass
-        # sys.exit(1)
+
     except socket.error, error:
         log.critical("Network error: " + error[1])
 
