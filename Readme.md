@@ -50,7 +50,7 @@ Asterisk version starting from 1.8 and later
 <pre> [general] </pre>
 <pre>enabled = yes</pre>
 <pre>port = 5038 </pre>
-    * Setup manager (in same file) just add the following manager
+    * Add manager (in same file _managers.conf_ ) by adding the following 
 <pre> [test] </pre> 
 <pre> secret = test</pre>
 <pre> permit= 127.0.0.1/255.255.255.0 </pre>
