@@ -46,24 +46,25 @@ Asterisk version starting from 1.8 and later
     </pre>
 
 4. Enable and set asterisk AMI manager in <i>managers.conf</i> according the following example
-    * For enabling ami interface asterisk at the top of <i>manageres.conf</i> set :
-      <pre> 
+    * To  enable AMI interface on asterisk at the top of <i>manageres.conf</i> set :
+      <pre>
       [general] 
       enabled = yes 
       port = 5038 
       </pre>
-    * Add manager (in same file _managers.conf_ ) by adding the following 
-<pre> [test] </pre> 
-<pre> secret = test</pre>
-<pre> permit= 127.0.0.1/255.255.255.0 </pre>
-<pre> read = system,cdr,call,log,verbose,command,user </pre>
-<pre> write = system,cdr,call,log,verbose,command,user </pre> 
+    * Then add manager (in same  _managers.conf_ file) by adding the following 
+<pre>[test]
+ secret = test
+ permit= 127.0.0.1/255.255.255.0 
+ read = system,cdr,call,log,verbose,command,user
+ write = system,cdr,call,log,verbose,command,user 
+ </pre> 
 5. Enable CDR output event to AMI console.Set in cdr _manager.conf_ 
-<pre> [general]</pre>
-<pre>  enabled = yes </pre>
+<pre> [general]
+      enabled = yes </pre>
 
 6. Copy init (start,stop) scripts to /etc/init.d directory
-<pre>cp /opt/asteracct/init/aster* /etc/init.d/ </pre>
+<pre>cp /opt/asteramiacct/init/aster* /etc/init.d/ </pre>
 
 7. Install [pyrad](https://pypi.python.org/pypi/pyrad) library required for that script either from
     * Pypi
