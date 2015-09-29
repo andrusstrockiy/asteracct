@@ -19,10 +19,12 @@ Asterisk version starting from 1.8 and later
 
 1. Get the source either by downloading an archive file or by cloning
    1. For Archive.Download as zip file archive
-      + Unzip / Untar the following archive with the script
-        <pre>sudo tar -zxvf asteracct-master.tar.gz -C /opt/</pre>
-      + For unzip run the following:
-        <pre>sudo unzip asteracct-master.zip -d /opt/ </pre>
+      + Download the script with :
+        <pre> wget https://github.com/andrusstrockiy/asteracct/archive/master.zip -O asteramiacct.zip </pre>
+        + Then Unzip / Untar the following archive with the script
+        <pre>sudo tar -zxvf asteramiacct.tar.gz -C /opt/</pre>
+        + For unzip run the following:
+        <pre>sudo unzip asteramiacct.zip -d /opt/ </pre>
    2. To clone the repository
       + cd to opt directory:
         <pre> cd /opt </pre>
