@@ -81,7 +81,15 @@ Asterisk version starting from 1.8 and later
 
 8. Make some test calls and observe results.You should see Accounting-Start and Accounting-Stop packets to arrive at Radius
 
-
+10. Check that your script is actually running after making few telephone calls by doing in linux console
+    <pre> ps aux | grep ast </pre>
+    Should give output like the following 
+    <pre> 
+    [root@pbx-msk andruss]# ps aux | grep ast
+    root      3514  0.0  0.0 106064   528 ?        S    Sep01   0:00 /bin/sh /usr/sbin/safe_asterisk -U asterisk -G asterisk
+    asterisk  3517  0.4  1.4 1530376 31128 ?       Sl   Sep01 168:58 /usr/sbin/asterisk -f -U asterisk -G asterisk -vvvg -c
+    root      5526  0.0  0.4  82880  8524 ?        S    15:11   0:00 /usr/bin/python2.6 /opt/asteracct/asteramiacct.py
+    </pre>
 
 ## Troubleshooting
 
