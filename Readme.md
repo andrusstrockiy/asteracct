@@ -45,11 +45,13 @@ Asterisk version starting from 1.8 and later
     ...
     </pre>
 
-4. Enable and set asterisk AMI manager in <i>managers.conf</i> according the fol lowing example
+4. Enable and set asterisk AMI manager in <i>managers.conf</i> according the following example
     * For enabling ami interface asterisk at the top of <i>manageres.conf</i> set :
-<pre> [general] </pre>
-<pre>enabled = yes</pre>
-<pre>port = 5038 </pre>
+      <pre> 
+      [general] 
+      enabled = yes 
+      port = 5038 
+      </pre>
     * Add manager (in same file _managers.conf_ ) by adding the following 
 <pre> [test] </pre> 
 <pre> secret = test</pre>
