@@ -1,4 +1,4 @@
-# Accounting script for Asterisk
+# Radius Accounting script for Asterisk
 <hr> </hr>
 ## Description
 
@@ -65,8 +65,37 @@ Asterisk version starting from 1.8 and later
 
 6. Copy init (start,stop) scripts to /etc/init.d directory
 <pre>cp /opt/asteramiacct/init/aster* /etc/init.d/ </pre>
+7. Enable cell events by setting in _cel.conf_
+    Activate cel event in general settings
+    <pre>
+    [general]
+    
+    ; CEL Activation
+    ;
+    ; Use the 'enable' keyword to turn CEL on or off.
+    ;
+    ; Accepted values: yes and no
+    ; Default value:   no
+    enable=yes
+    </pre>
+    Forward cell events in AMI console
+    <pre>
+    [manager]
+    ; AMI Backend Activation
+    ;
+    ; Use the 'enable' keyword to turn CEL logging to the Asterisk Manager Interface
+    ; on or off.
+    ;
+    ; Accepted values: yes and no
+    ; Default value:   no
+    enabled=yes
+    </pre>
+    and then add 
+    <pre>
+    events=ANSWER
+    </pre>
 
-7. Install [pyrad](https://pypi.python.org/pypi/pyrad) library required for that script either from
+7. Install [pyrad](https://pypi.python.org/pypi/pyrad) Radius library required for that script either from
     * Pypi
         Download and unzip\untar.
     <pre> cd pyrad-2.0 </pre>
@@ -76,6 +105,10 @@ Asterisk version starting from 1.8 and later
     <pre> cd /opt/asteracct/libs/pyrad-2.0 </pre>
     and then 
     <pre> sudo python setup.py install</pre>
+7. Restart Asterisk through
+    <pre>
+    service asterisk restart
+    </pre>
 7. Start the script 
 <pre> service asteramiacct start </pre>
 
