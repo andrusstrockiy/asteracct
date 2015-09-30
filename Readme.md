@@ -105,7 +105,7 @@ Asterisk version starting from 1.8 and later
     <pre> cd /opt/asteracct/libs/pyrad-2.0 </pre>
     and then 
     <pre> sudo python setup.py install</pre>
-7. Restart Asterisk through
+7. Restart Asterisk through to apply new settings to asterisk
     <pre>
     service asterisk restart
     </pre>

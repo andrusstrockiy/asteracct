@@ -9,6 +9,7 @@ import logging.handlers
 
 
 # Todo Read log directory from and extension.conf file
+
 logfilename = 'asteracct.log'
 logdir = '/opt/asteracct/log/'
 
